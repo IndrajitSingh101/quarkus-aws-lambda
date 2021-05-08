@@ -31,11 +31,24 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+        
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./src/main/docker/Dockerfile.jvm
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/quarkus-aws-lamnda:latest
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
-
+        
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |

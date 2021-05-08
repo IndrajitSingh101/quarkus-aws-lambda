@@ -42,7 +42,7 @@ jobs:
           context: ./
           file: ./src/main/docker/Dockerfile.jvm
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/quarkus-aws-lamnda:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/quarkus-aws-lambda:latest
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: echo Hello, world!
